@@ -19,8 +19,12 @@ import { DateTimePickerCalendar } from "./DateTimePickerCalendar";
 import { DeleteIcon } from "./DeleteIcon";
 import { ReminderTextBox } from "./Text_box";
 import { ColorPickerCalendar } from "./ColorPickerCalendar";
+import { SaveReminder } from "./SaveIcon";
+import { ReminderStore } from "../../../states/reminderStore";
 
 export const Reminder = () => {
+  const reminderText = ReminderStore.useState((s) => s.text);
+
   return (
     <>
       <ReminderTextBox />
@@ -28,6 +32,7 @@ export const Reminder = () => {
       <DateTimePickerCalendar />
       <DeleteIcon />
       <ColorPickerCalendar />
+      <SaveReminder />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Reminder } from "../../components/calendar/Reminder";
+import { Reminder } from "../../components/calendar/NewReminder";
 
 const CalendarPage = () => {
   return (

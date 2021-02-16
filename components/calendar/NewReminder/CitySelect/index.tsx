@@ -16,6 +16,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import colombianCities from "../../../../colombia.city.list.json";
+import { ReminderStore, CityType } from "../../../../states/reminderStore";
 
 const useStyles = makeStyles({
   option: {
@@ -28,6 +29,16 @@ const useStyles = makeStyles({
 });
 
 export const CitySelect = () => {
+  const handleChangeCity = (
+    _event: React.ChangeEvent<{}>,
+    value: CityType | null
+  ) => {
+    value
+      ? ReminderStore.update((s) => {
+          s.city = value;
+        })
+      : null;
+  };
   const classes = useStyles();
 
   return (
@@ -52,19 +63,7 @@ export const CitySelect = () => {
           }}
         />
       )}
+      onChange={(event, value) => handleChangeCity(event, value)}
     />
   );
 };
-
-interface CoordinateType {
-  lon: number;
-  lat: number;
-}
-
-interface CityType {
-  id: number;
-  name: string;
-  state: string;
-  country: string;
-  coord: CoordinateType;
-}
