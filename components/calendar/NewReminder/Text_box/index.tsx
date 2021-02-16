@@ -1,9 +1,12 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { ReminderStore } from "../../../../states/reminderStore";
+import {
+  ReminderStore,
+  IReminderStore,
+} from "../../../../states/reminderStore";
 
 function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-  ReminderStore.update((s) => {
+  ReminderStore.update((s: IReminderStore) => {
     s.text = event.currentTarget.value;
   });
 }
@@ -15,6 +18,8 @@ export const ReminderTextBox = () => {
       label="Remember me..."
       variant="outlined"
       onChange={handleInputChange}
+      fullWidth
+      style={{ marginBottom: 24 }}
     />
   );
 };

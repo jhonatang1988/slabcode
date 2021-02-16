@@ -1,16 +1,32 @@
 import React, { useState } from "react";
 import { Color, ColorPicker } from "material-ui-color";
-import { ReminderStore } from "../../../../states/reminderStore";
+import {
+  ReminderStore,
+  IReminderStore,
+} from "../../../../states/reminderStore";
+import {
+  ValidationStore,
+  IValidationStore,
+} from "../../../../states/validationStore";
 
 export const ColorPickerCalendar = () => {
-  const color = ReminderStore.useState((s) => s.color);
-  // const [color, setColor] = useState("red");
+  const reminderColor = ReminderStore.useState((s) => s.reminderColor);
   const handleColorChange = (newValue: Color) => {
     ReminderStore.update((s) => {
-      s.color = `#${newValue.hex}`;
+      s.reminderColor = `#${newValue.hex}`;
+    });
+    ValidationStore.update((s: IValidationStore) => {
+      s.reminderColor = true;
     });
   };
   return (
-    <ColorPicker value={color} onChange={handleColorChange} hideTextfield />
+    <div>
+      <span>Pick a colour for your reminder:</span>
+      <ColorPicker
+        value={reminderColor}
+        onChange={handleColorChange}
+        hideTextfield
+      />
+    </div>
   );
 };

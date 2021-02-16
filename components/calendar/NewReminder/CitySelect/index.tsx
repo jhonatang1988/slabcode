@@ -16,7 +16,15 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import colombianCities from "../../../../colombia.city.list.json";
-import { ReminderStore, CityType } from "../../../../states/reminderStore";
+import {
+  ReminderStore,
+  CityType,
+  IReminderStore,
+} from "../../../../states/reminderStore";
+import {
+  ValidationStore,
+  IValidationStore,
+} from "../../../../states/validationStore";
 
 const useStyles = makeStyles({
   option: {
@@ -29,22 +37,22 @@ const useStyles = makeStyles({
 });
 
 export const CitySelect = () => {
-  const handleChangeCity = (
-    _event: React.ChangeEvent<{}>,
-    value: CityType | null
-  ) => {
-    value
-      ? ReminderStore.update((s) => {
-          s.city = value;
-        })
-      : null;
+  const handleChangeCity = (_event: React.ChangeEvent<{}>, value: CityType) => {
+    if (value) {
+      ReminderStore.update((s: IReminderStore) => {
+        s.city = value;
+      });
+      ValidationStore.update((s: IValidationStore) => {
+        s.city = true;
+      });
+    }
   };
   const classes = useStyles();
 
   return (
     <Autocomplete
       id="city-select-calendar"
-      style={{ width: 300 }}
+      style={{ width: 300, marginBottom: 24 }}
       options={colombianCities as CityType[]}
       classes={{
         option: classes.option,
@@ -64,6 +72,8 @@ export const CitySelect = () => {
         />
       )}
       onChange={(event, value) => handleChangeCity(event, value)}
+      fullWidth
+      disableClearable
     />
   );
 };

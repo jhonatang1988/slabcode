@@ -1,10 +1,10 @@
 import React from "react";
-import { Reminder } from "../../components/calendar/NewReminder";
+import { MonthGrid } from "../../components/calendar/Month";
 
 const CalendarPage = () => {
   return (
     <>
-      <Reminder />
+      <MonthGrid />
     </>
   );
 };

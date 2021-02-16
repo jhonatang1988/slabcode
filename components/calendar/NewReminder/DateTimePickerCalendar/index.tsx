@@ -20,6 +20,7 @@ export const DateTimePickerCalendar = () => {
           newDate ? handleDateChange(newDate.toDate()) : null
         }
         minDate={new Date()}
+        style={{ width: 300, marginBottom: 24 }}
       />
     </MuiPickersUtilsProvider>
   );

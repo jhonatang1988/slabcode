@@ -1,16 +1,17 @@
 import { Store } from "pullstate";
 
-interface IReminderStore {
+export interface IReminderStore {
+  id: number;
   text: string;
   city: CityType;
   date: Date;
-  color: string;
-  delete: boolean;
+  reminderColor: string;
   weather: number;
   weatherMetric: WeatherNotation;
+  open: boolean;
 }
 
-enum WeatherNotation {
+export enum WeatherNotation {
   F = "Fahrenheit",
   C = "Celsius",
   K = "Kelvin",
@@ -30,6 +31,7 @@ export interface CityType {
 }
 
 export const ReminderStore = new Store<IReminderStore>({
+  id: new Date().getTime(),
   text: "",
   city: {
     id: 0,
@@ -42,8 +44,8 @@ export const ReminderStore = new Store<IReminderStore>({
     },
   },
   date: new Date(),
-  color: "red",
-  delete: false,
+  reminderColor: "red",
   weather: 0,
   weatherMetric: WeatherNotation.C,
+  open: false,
 });
