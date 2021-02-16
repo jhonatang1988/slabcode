@@ -12,6 +12,7 @@ function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
 }
 
 export const ReminderTextBox = () => {
+  const reminderTextCandidate = ReminderStore.useState((s) => s.text);
   return (
     <TextField
       id="outlined-basic"
@@ -20,6 +21,7 @@ export const ReminderTextBox = () => {
       onChange={handleInputChange}
       fullWidth
       style={{ marginBottom: 24 }}
+      value={reminderTextCandidate}
     />
   );
 };

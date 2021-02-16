@@ -49,6 +49,8 @@ export const CitySelect = () => {
   };
   const classes = useStyles();
 
+  const reminderCityCandidate = ReminderStore.useState((s) => s.city);
+
   return (
     <Autocomplete
       id="city-select-calendar"
@@ -74,6 +76,7 @@ export const CitySelect = () => {
       onChange={(event, value) => handleChangeCity(event, value)}
       fullWidth
       disableClearable
+      value={reminderCityCandidate}
     />
   );
 };
