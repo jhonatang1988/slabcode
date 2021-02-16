@@ -7,6 +7,7 @@ import { MonthStore } from "../../../states/monthStore";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { IReminderStore, ReminderStore } from "../../../states/reminderStore";
+import { WeatherTemp } from "../NewReminder/WeatherTemp";
 
 interface IProps {
   day: string;
@@ -62,6 +63,7 @@ export const ReminderByDayList = ({ day }: IProps) => {
                 id={labelId}
                 primary={`${reminder.text} In: ${reminder.city.name} Temp:`}
               />
+              <WeatherTemp id={reminder.city.id} />
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"
