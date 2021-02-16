@@ -1,17 +1,15 @@
-## Slab Tech Lead - Technical Test
+## Slabcode Front End Javascript Challenge Calendar
 
-Deployed link: https://torre-swart.vercel.app/
+Deployed link: https://js-calendar.vercel.app/
 
-progress log: https://docs.google.com/spreadsheets/d/1NPoSaDwK80ZPIJ2SZZsbopLFQaJh3Zq_6weG18MxFV4/edit?usp=sharing
-
-Develop on Javascript, with Reactjs over Nodejs.
+Develop on Typescrypt, with Reactjs over Nextjs.
 
 Frameworks and Modules used:
 
 - Reactjs
 - Nextjs
-- Firestore Database
 - Vercel Static Hosting
 - Styles with Material UI
-- Async module for data fetching
-- Hooks for data states management
+- Elements with Material UI
+- isomorphic-unfetch module for data fetching form client and server
+- pullstate and hooks for data states management
