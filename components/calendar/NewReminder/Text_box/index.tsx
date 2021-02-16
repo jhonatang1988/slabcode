@@ -4,6 +4,7 @@ import {
   ReminderStore,
   IReminderStore,
 } from "../../../../states/reminderStore";
+import { CHARACTER_LIMIT } from "../../../../contants";
 
 function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
   ReminderStore.update((s: IReminderStore) => {
@@ -22,6 +23,9 @@ export const ReminderTextBox = () => {
       fullWidth
       style={{ marginBottom: 24 }}
       value={reminderTextCandidate}
+      inputProps={{
+        maxLength: CHARACTER_LIMIT,
+      }}
     />
   );
 };

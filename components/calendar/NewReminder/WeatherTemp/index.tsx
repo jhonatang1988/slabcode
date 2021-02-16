@@ -15,7 +15,7 @@ interface IOutput {
 const getTempForCityById = createAsyncAction<IPropsInput, IOutput>(
   async ({ id }) => {
     const openWeatherApiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_KEY;
-    const url = `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${openWeatherApiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${openWeatherApiKey}&units=metric`;
 
     const result = await fetcher(url);
 
@@ -40,12 +40,12 @@ export const WeatherTemp = ({ id }: IPropsInput) => {
   const [finished, result] = getTempForCityById.useBeckon({ id: id });
 
   if (!finished) {
-    return <span>temp?</span>;
+    return <span>temp...</span>;
   }
 
   if (result.error) {
     return <span>{result.message}</span>;
   }
 
-  return result && <span>{result.payload.main.temp}</span>;
+  return result && <span>Temp: {result.payload.main.temp}</span>;
 };

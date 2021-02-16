@@ -8,10 +8,20 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { IReminderStore, ReminderStore } from "../../../states/reminderStore";
 import { WeatherTemp } from "../NewReminder/WeatherTemp";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 interface IProps {
   day: string;
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    gridTile: {
+      overflow: "scroll",
+      maxHeight: "-webkit-fill-available",
+    },
+  })
+);
 
 export const ReminderByDayList = ({ day }: IProps) => {
   const todayReminders = MonthStore.useState((s) => s[day].reminders);
@@ -40,8 +50,10 @@ export const ReminderByDayList = ({ day }: IProps) => {
     });
   };
 
+  const classes = useStyles();
+
   return (
-    <List dense>
+    <List dense className={classes.gridTile}>
       <ListItem button>
         <ListItemText primary={day} />
       </ListItem>
@@ -59,11 +71,12 @@ export const ReminderByDayList = ({ day }: IProps) => {
               style={style}
               onClick={() => handleViewReminder(reminder)}
             >
-              <ListItemText
-                id={labelId}
-                primary={`${reminder.text} In: ${reminder.city.name} Temp:`}
-              />
-              <WeatherTemp id={reminder.city.id} />
+              <ListItemText id={labelId}>
+                <div>{`${reminder.text} In: ${reminder.city.name} `}</div>
+                <WeatherTemp id={reminder.city.id} />
+                <span>{`° ${reminder.weatherMetric}`}</span>
+              </ListItemText>
+
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"

@@ -15,10 +15,11 @@ import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-around",
+      overflow: "hidden",
       backgroundColor: theme.palette.background.paper,
-      width: 500,
-      position: "relative",
-      minHeight: 200,
     },
     fab: {
       position: "absolute",
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     gridTile: {
       borderStyle: "groove",
+      overflow: "scroll",
     },
   })
 );
@@ -66,8 +68,8 @@ const MonthGrid = ({ width }: IProps) => {
   };
 
   return (
-    <div>
-      <GridList cellHeight={150} cols={getGridListCols()}>
+    <div className={classes.root}>
+      <GridList cellHeight={170} cols={getGridListCols()}>
         <GridListTile key="Subheader" cols={7} style={{ height: "auto" }}>
           <ListSubheader component="div">
             <h2>{new Date().toLocaleString("default", { month: "long" })}</h2>
