@@ -17,8 +17,12 @@ import {
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
 import { MonthStore } from "../../../states/monthStore";
+import { fetcher } from "../../../helpers";
+import useSWR from "swr";
+const check = require("check-types");
 
 export const NewReminder = () => {
+  const reminderIdCandidate = ReminderStore.useState((s) => s.id);
   const reminderTextCandidate = ReminderStore.useState((s) => s.text);
   const reminderCityCandidate = ReminderStore.useState((s) => s.city);
   const reminderDateCandidate = ReminderStore.useState((s) => s.date);
@@ -38,6 +42,11 @@ export const NewReminder = () => {
     "none"
   );
 
+  const openWeatherApiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_KEY;
+  console.log(process.env.OPEN_WEATHER_KEY);
+  const url = `https://api.openweathermap.org/data/2.5/weather?id=${reminderCityCandidate.id}&appid=${openWeatherApiKey}`;
+  const { data } = useSWR<string[]>(url, fetcher);
+
   const handleSaveReminder = () => {
     let validated = false;
     if (reminderTextCandidate === "") {
@@ -56,10 +65,19 @@ export const NewReminder = () => {
       validated = true;
     }
 
-    if (validated) {
-      const reminderIdCandidate = new Date().getTime();
+    if (validated && data) {
+      data.map((item) => {
+        console.log(item);
+      });
+
       MonthStore.update((s) => {
-        s[reminderDayCandidate.toString()].reminders.push({
+        const reminders = s[reminderDayCandidate].reminders;
+        reminders.forEach((_reminder, _index) => {
+          if (_reminder.id === reminderIdCandidate) {
+            reminders.splice(_index, 1);
+          }
+        });
+        reminders.push({
           id: reminderIdCandidate,
           text: reminderTextCandidate,
           city: reminderCityCandidate,
@@ -70,7 +88,8 @@ export const NewReminder = () => {
           open: false,
         });
       });
-      console.log("reminder guardado");
+
+      handleCloseDialog();
     }
   };
 

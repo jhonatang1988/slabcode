@@ -58,7 +58,10 @@ export const ReminderByDayList = ({ day }: IProps) => {
               style={style}
               onClick={() => handleViewReminder(reminder)}
             >
-              <ListItemText id={labelId} primary={reminder.text} />
+              <ListItemText
+                id={labelId}
+                primary={`${reminder.text} In: ${reminder.city.name} Temp:`}
+              />
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"

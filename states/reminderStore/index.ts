@@ -23,7 +23,7 @@ interface CoordinateType {
 }
 
 export interface CityType {
-  id: number;
+  readonly id: number;
   name: string;
   state: string;
   country: string;
