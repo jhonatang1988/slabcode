@@ -21,6 +21,7 @@ export const DateTimePickerCalendar = () => {
         }
         minDate={new Date()}
         style={{ width: 300, marginBottom: 24 }}
+        maxDate={new Date(date.getFullYear(), date.getMonth() + 1, 0)}
       />
     </MuiPickersUtilsProvider>
   );

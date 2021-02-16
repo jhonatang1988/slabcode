@@ -1,27 +1,34 @@
-import "../styles/globals.css";
-// comment this out to get a real simple backend
-// import React from "react";
-// import "firebase/firestore";
-// import "firebase/auth";
-// import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
+import React from "react";
+import Head from "next/head";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "../styles/theme";
 
-// const firebaseConfig = {
-//   apiKey: process.env.APIKEY,
-//   authDomain: process.env.AUTH_DOMAIN,
-//   projectId: process.env.PROJECT_ID,
-//   storageBucket: process.env.STORAGE_BUCKET,
-//   messagingSenderId: process.env.MESSAGING_SENDER_ID,
-//   appId: process.env.APP_ID,
-// };
+export default function MyApp(props) {
+  const { Component, pageProps } = props;
 
-// const fuego = new Fuego(firebaseConfig);
+  React.useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
 
-function MyApp({ Component, pageProps }) {
   return (
-    // <FuegoProvider fuego={fuego}>
-    <Component {...pageProps} />
-    // </FuegoProvider>
+    <React.Fragment>
+      <Head>
+        <title>CaLeNdApp</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
-
-export default MyApp;

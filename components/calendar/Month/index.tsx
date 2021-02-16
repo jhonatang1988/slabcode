@@ -10,6 +10,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import { NewReminder } from "../NewReminder";
 import { ReminderStore } from "../../../states/reminderStore";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,24 +32,49 @@ const useStyles = makeStyles((theme: Theme) =>
       right: theme.spacing(6),
       zIndex: 1000,
     },
+    gridTile: {
+      borderStyle: "groove",
+    },
   })
 );
+interface IProps {
+  width: "xs" | "sm" | "md" | "lg" | "xl";
+}
 
-export const MonthGrid = () => {
+const MonthGrid = ({ width }: IProps) => {
   const classes = useStyles();
   const openReminderDialog = () => {
     ReminderStore.update((s) => {
       s.open = true;
     });
   };
+
+  const getGridListCols = () => {
+    if (isWidthUp("lg", width)) {
+      return 4;
+    }
+
+    if (isWidthUp("md", width)) {
+      return 3;
+    }
+
+    if (isWidthUp("sm", width)) {
+      return 2;
+    }
+
+    return 1;
+  };
+
   return (
     <div>
-      <GridList cellHeight={100} cols={7}>
-        <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-          <ListSubheader component="div">December</ListSubheader>
+      <GridList cellHeight={150} cols={getGridListCols()}>
+        <GridListTile key="Subheader" cols={7} style={{ height: "auto" }}>
+          <ListSubheader component="div">
+            <h2>{new Date().toLocaleString("default", { month: "long" })}</h2>
+          </ListSubheader>
         </GridListTile>
         {createMonth().map((day) => (
-          <GridListTile key={day}>
+          <GridListTile key={day} className={classes.gridTile}>
             <ReminderByDayList day={day.toString()} />
           </GridListTile>
         ))}
@@ -68,3 +94,5 @@ export const MonthGrid = () => {
     </div>
   );
 };
+
+export default withWidth()(MonthGrid);

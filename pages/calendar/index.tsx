@@ -1,5 +1,5 @@
 import React from "react";
-import { MonthGrid } from "../../components/calendar/Month";
+import MonthGrid from "../../components/calendar/Month";
 
 const CalendarPage = () => {
   return (
