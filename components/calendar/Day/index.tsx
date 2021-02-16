@@ -9,6 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { IReminderStore, ReminderStore } from "../../../states/reminderStore";
 import { WeatherTemp } from "../NewReminder/WeatherTemp";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
 
 interface IProps {
   day: string;
@@ -59,34 +60,38 @@ export const ReminderByDayList = ({ day }: IProps) => {
       </ListItem>
       {todayReminders &&
         todayReminders.map((reminder) => {
-          const backGroundColor = reminder.reminderColor;
+          const color = reminder.reminderColor;
           const style = {
-            color: backGroundColor,
+            color: color,
           };
           const labelId = `checkbox-list-secondary-label-${reminder.id}`;
           return (
-            <ListItem
-              key={reminder.id}
-              button
-              style={style}
-              onClick={() => handleViewReminder(reminder)}
-            >
-              <ListItemText id={labelId}>
-                <div>{`${reminder.text} In: ${reminder.city.name} `}</div>
-                <WeatherTemp id={reminder.city.id} />
-                <span>{`° ${reminder.weatherMetric}`}</span>
-              </ListItemText>
-
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => handleDeleteReminder(reminder)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+            <>
+              <ListItem
+                key={reminder.id}
+                button
+                style={style}
+                onClick={() => handleViewReminder(reminder)}
+              >
+                <ListItemText id={labelId}>
+                  <div>{`Reminder: ${reminder.text}`}</div>
+                  <div>{`Where: ${reminder.city.name}`}</div>
+                  <WeatherTemp id={reminder.city.id} />
+                  <span>{`° ${reminder.weatherMetric}`}</span>
+                  <div>{`Time: ${reminder.date.toLocaleTimeString()}`}</div>
+                </ListItemText>
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => handleDeleteReminder(reminder)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+              <Divider />
+            </>
           );
         })}
     </List>

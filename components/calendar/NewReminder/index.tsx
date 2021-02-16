@@ -9,11 +9,7 @@ import { DateTimePickerCalendar } from "./DateTimePickerCalendar";
 import { ReminderTextBox } from "./Text_box";
 import { ColorPickerCalendar } from "./ColorPickerCalendar";
 import { SaveReminder } from "./SaveIcon";
-import {
-  ReminderStore,
-  IReminderStore,
-  WeatherNotation,
-} from "../../../states/reminderStore";
+import { ReminderStore, WeatherNotation } from "../../../states/reminderStore";
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
 import { MonthStore } from "../../../states/monthStore";
@@ -74,6 +70,11 @@ export const NewReminder = () => {
           weather: reminderWeatherCandidate,
           weatherMetric: reminderWeatherMetricCandidate,
           open: false,
+        });
+        reminders.sort((a, b) => {
+          if (a.date < b.date) return -1;
+          if (a.date > b.date) return 1;
+          return 0;
         });
       });
 
